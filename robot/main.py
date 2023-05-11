@@ -40,14 +40,15 @@ serveur.listen(10)
 
 # Boucle de gestion des connexions des clients
 fin = False
+client, adresse = serveur.accept()
+print("Connexion de " + str(adresse))
 while fin == False:
     # Attente qu'un client se connecte
-    client, adresse = serveur.accept()
-    print(f"Connexion de {adresse}")
 
     # Réception de la requete du client sous forme de bytes et transformation en string
     requete = client.recv(1024)
-    print(f"Réception de {requete.decode()}")
+    print("Réception de " + requete.decode())
+    reponse = "OK"
     if requete.decode() == "FIN":
         fin = True
     if requete.decode() == "VROUM":
