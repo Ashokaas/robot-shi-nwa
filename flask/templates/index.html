@@ -3,24 +3,12 @@
 
     <head>
         <title>Robot Shi-Nwa</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+        <link rel="stylesheet" href="">
     </head>
 
     <body>
 
-        <div id="header">
-            <div>
-                <p>Robot Shi-Nwa</p>
-            </div>
-            <div>
-                <div id="header_controller">
-                    <img src="{{ url_for('static', filename='images/xbox_controller.png') }}" onclick="select_device('controller')">
-                </div>
-                <div id="header_keyboard">
-                    <img src="{{ url_for('static', filename='images/keyboard.png') }}" onclick="select_device('keyboard')">
-                </div>
-            </div>
-        </div>
+        {% include "header.html" %}
 
         <div id="devices">
             <table>

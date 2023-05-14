@@ -38,7 +38,7 @@
     align-items: center;
 }
 
-#header div:last-of-type div:hover {
+#header div:last-of-type div:hover, #header a:hover {
     background-color: #3b3d49;
     cursor: pointer;
 }

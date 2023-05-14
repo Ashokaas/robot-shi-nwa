@@ -21,16 +21,20 @@ def not_found(error):
     return redirect(url_for("index"))
 
 
+@app.route("/story")
+def story():
+    """Page d'accueil"""
+    return render_template("story.html")
+
+
 @app.route("/")
+@app.route("/index")
 def index():
     """Page d'accueil"""
     return render_template("index.html")
 
 
-@app.route("/about")
-def about():
-    """Page à propos"""
-    return render_template("about.html")
+
 
 
 

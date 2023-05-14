@@ -109,7 +109,7 @@ function select_device(device) {
 
     if (device === 'controller') {
         // Exevute the read_controller_inputs function every 100ms if a controller is connected
-        setInterval(() => {
+        interval = setInterval(() => {
             if(gamepadIndex !== undefined) {
                 // A controller is connected and has an index
                 const controller = navigator.getGamepads()[gamepadIndex];
@@ -158,10 +158,15 @@ function select_device(device) {
         header_controller.style.backgroundColor = "#424558"
         header_keyboard.style.backgroundColor = ""
 
+
     } else if (device === 'keyboard') {
         console.log('Keyboard selected');
         header_keyboard.style.backgroundColor = "#424558"
         header_controller.style.backgroundColor = ""
+
+        if (interval !== undefined) {
+            clearInterval(interval);
+        }
         
 
         document.addEventListener('keydown', function(event) {
