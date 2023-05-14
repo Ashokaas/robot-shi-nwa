@@ -16,10 +16,20 @@
 
 #header p {
     color: white;
-    margin-left: 20px;
     font-size: 23px;
     white-space: nowrap;
 }
+
+#header a {
+    height: 100%;
+    text-decoration: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 30px;
+}
+
 
 #header div:last-of-type div img   {
     width: 45px;
@@ -38,7 +48,7 @@
     align-items: center;
 }
 
-#header div:last-of-type div:hover, #header a:hover {
+#header div > div:hover, #header a:hover  {
     background-color: #3b3d49;
     cursor: pointer;
 }

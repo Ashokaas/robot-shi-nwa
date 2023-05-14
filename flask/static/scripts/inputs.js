@@ -157,6 +157,7 @@ function select_device(device) {
         console.log('Controller selected');
         header_controller.style.backgroundColor = "#424558"
         header_keyboard.style.backgroundColor = ""
+        
 
 
     } else if (device === 'keyboard') {
