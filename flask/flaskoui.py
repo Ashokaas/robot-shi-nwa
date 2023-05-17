@@ -41,7 +41,12 @@ def index():
 @app.route('/my_route', methods=['POST'])
 def my_route():
     myList = request.get_json()
-    print(myList)
+    if myList == "avancer":
+        print(1)
+        client.sendall("start_drive".encode("utf8"))
+    elif myList == "stop_avancer":
+        client.sendall("stop_drive".encode("utf8"))
+    print(type(myList))
     return jsonify({'result': myList})
 
 
