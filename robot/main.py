@@ -27,7 +27,7 @@ class Robot:
         motorDroite = Motor(Port.C, Direction.CLOCKWISE)
         motorCentre = Motor(Port.B, Direction.CLOCKWISE)
 
-        # self.vroum = DriveBase(motorGauche, motorDroite, 55.5, 104)
+        self.vroumBase = DriveBase(motorGauche, motorDroite, 55.5, 104)
 
         self.vroum = (motorGauche, motorDroite, motorCentre)
 
@@ -35,8 +35,10 @@ class Robot:
         self.color = ColorSensor(Port.S3)
 
     def drive(self, speed, angle):
-        self.vroum[0].run(speed)
-        self.vroum[1].run(speed)
+        self.vroumBase.drive(speed, angle)
+
+    def get_datas(self):
+        return self.ultrasonic.distance(silent=True), self.color.ambient()*10
 
     def stop(self):
         self.vroumBase.stop()
@@ -57,7 +59,7 @@ class Server:
         fin = False
         client, adresse = self.serveur.accept()
         print("Connexion de " + str(adresse))
-        while fin == False:
+        while not fin:
             # Attente qu'un client se connecte
             print("oui")
             # Réception de la requete du client sous forme de bytes et transformation en string
@@ -67,10 +69,19 @@ class Server:
             reponse = "OK"
             if requete.decode() == "FIN":
                 fin = True
-            if requete.decode() == "start_drive":
-                self.robot.drive(100, 0)
-            if requete.decode() == "stop_drive":
+            if requete.decode() == "avancer":
+                self.robot.drive(500, 0)
+            if requete.decode() == "stop_avancer":
                 self.robot.stop()
+            if requete.decode() == "reculer":
+                self.robot.drive(-500, 0)
+            if requete.decode() == "stop_reculer":
+                self.robot.stop()
+            if requete.decode() == "gauche":
+                self.robot.drive(150, -150)
+            if requete.decode() == "droite":
+                self.robot.drive(-150, 150)
+
 
             # Préparation et envoi de la réponse
             reponse = "OK"

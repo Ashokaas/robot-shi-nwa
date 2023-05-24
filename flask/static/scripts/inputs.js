@@ -82,6 +82,7 @@ function select_device(device) {
         let result = "";
         // Event listener for each keydown
         document.addEventListener('keydown', function(event) {
+            if (event.repeat) {return}
             console.log(event.key);
             // Create a list containing all inputs
 
@@ -90,9 +91,9 @@ function select_device(device) {
             } if (event.key === "ArrowLeft") {
                 result = "gauche"
             } if (event.key === "ArrowDown") {
-                result.push("reculer");
+                result ="reculer";
             } if (event.key === "ArrowRight") {
-                result.push("droite");
+                result = "droite";
             }
             // Send request to the Python file if there is an input
             fetch('http://10.229.253.46:2005', {
