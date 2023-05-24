@@ -11,21 +11,9 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 # Click "Open user guide" on the EV3 extension tab for more information.
 
 
-# Create your objects here.
-ev3 = EV3Brick()
-
-
-# Write your program here.
-ev3.speaker.beep()
-
-motorGauche = Motor(Port.A)
-motorDroite = Motor(Port.C)
-
-vroum = DriveBase(motorGauche, motorDroite, 55.5, 104)
-
-
 # Librairie(s)
 import socket
+
 
 class Robot:
     def __init__(self):
@@ -42,6 +30,9 @@ class Robot:
         # self.vroum = DriveBase(motorGauche, motorDroite, 55.5, 104)
 
         self.vroum = (motorGauche, motorDroite, motorCentre)
+
+        self.ultrasonic = UltrasonicSensor(Port.S2)
+        self.color = ColorSensor(Port.S3)
 
     def drive(self, speed, angle):
         self.vroum[0].run(speed)
