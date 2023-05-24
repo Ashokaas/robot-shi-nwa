@@ -48,13 +48,13 @@ class Robot:
         self.vroum[1].run(speed)
 
     def stop(self):
-        self.vroum[0].stop()
-        self.vroum[1].stop()
+        self.vroumBase.stop()
 
 
 class Server:
     def __init__(self, adresse, port, robot: Robot):
         self.serveur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.serveur.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
         # On demande à l'OS d'attacher notre programme au port TCP demandé
         self.serveur.bind((adresse, port))
@@ -85,9 +85,9 @@ class Server:
             reponse = "OK"
             client.send(reponse.encode())
 
-            # Déconnexion avec le client
-            print("Fermeture de la connexion avec le client.")
-            client.close()
+        # Déconnexion avec le client
+        print("Fermeture de la connexion avec le client.")
+        client.close()
 
     def close(self):
         try:

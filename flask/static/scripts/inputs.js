@@ -95,7 +95,7 @@ function select_device(device) {
                 result.push("droite");
             }
             // Send request to the Python file if there is an input
-            fetch('/my_route', {
+            fetch('http://10.229.253.46:2005', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -122,7 +122,7 @@ function select_device(device) {
             }
 
             // Send request to the Python file if there is an input
-            fetch('/my_route', {
+            fetch('http://10.229.253.46:2005', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
