@@ -6,7 +6,6 @@ from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 
-
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 # Click "Open user guide" on the EV3 extension tab for more information.
 
@@ -34,11 +33,17 @@ class Robot:
         self.ultrasonic = UltrasonicSensor(Port.S2)
         self.color = ColorSensor(Port.S3)
 
+        # Touches appuyées
+        self.up = False
+        self.left = False
+        self.right = False
+        self.down = False
+
     def drive(self, speed, angle):
         self.vroumBase.drive(speed, angle)
 
     def get_datas(self):
-        return self.ultrasonic.distance(silent=True), self.color.ambient()*10
+        return self.ultrasonic.distance(silent=True), self.color.ambient() * 10
 
     def stop(self):
         self.vroumBase.stop()
@@ -55,33 +60,33 @@ class Server:
 
         self.robot = robot
 
+    def keyboard_handling(self):
+        vitesse = 500 * self.robot.up - 500 * self.robot.down
+        angle = 30 * self.robot.right - 30 * self.robot.left
+        vitesse += 1 if angle > 0 and vitesse == 0 else 0
+
+        self.robot.drive(vitesse, angle)
+
     def listen(self):
         fin = False
         client, adresse = self.serveur.accept()
         print("Connexion de " + str(adresse))
         while not fin:
             # Attente qu'un client se connecte
-            print("oui")
             # Réception de la requete du client sous forme de bytes et transformation en string
             requete = client.recv(1024)
-            print("Réception de " + requete.decode())
-            print("oui")
-            reponse = "OK"
-            if requete.decode() == "FIN":
-                fin = True
-            if requete.decode() == "avancer":
-                self.robot.drive(500, 0)
-            if requete.decode() == "stop_avancer":
-                self.robot.stop()
-            if requete.decode() == "reculer":
-                self.robot.drive(-500, 0)
-            if requete.decode() == "stop_reculer":
-                self.robot.stop()
-            if requete.decode() == "gauche":
-                self.robot.drive(150, -150)
-            if requete.decode() == "droite":
-                self.robot.drive(-150, 150)
+            requetestr = requete.decode()
+            print("Réception de " + requetestr)
 
+            if requetestr.startswith("K "):
+                cmd = requetestr.removeprefix("K ")
+
+                self.robot.up = True if cmd == "avancer" else False if cmd == "stop_avancer" else self.robot.up
+                self.robot.left = True if cmd == "gauche" else False if cmd == "stop_gauche" else self.robot.left
+                self.robot.right = True if cmd == "droite" else False if cmd == "stop_droite" else self.robot.right
+                self.robot.down = True if cmd == "reculer" else False if cmd == "stop_reculer" else self.robot.down
+
+                self.keyboard_handling()
 
             # Préparation et envoi de la réponse
             reponse = "OK"

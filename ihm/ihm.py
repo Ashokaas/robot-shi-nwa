@@ -21,24 +21,24 @@ pygame.init()
 
 def on_key_down(event):
     if event.key == pygame.K_UP:
-        client.send("avancer".encode())
+        client.send("K avancer".encode())
     elif event.key == pygame.K_LEFT:
-        client.send("gauche".encode())
+        client.send("K gauche".encode())
     elif event.key == pygame.K_DOWN:
-        client.send("reculer".encode())
+        client.send("K reculer".encode())
     elif event.key == pygame.K_RIGHT:
-        client.send("droite".encode())
+        client.send("K droite".encode())
 
 
 def on_key_up(event):
     if event.key == pygame.K_UP:
-        client.send("stop_avancer".encode())
+        client.send("K stop_avancer".encode())
     elif event.key == pygame.K_LEFT:
-        client.send("stop_gauche".encode())
+        client.send("K stop_gauche".encode())
     elif event.key == pygame.K_DOWN:
-        client.send("stop_reculer".encode())
+        client.send("K stop_reculer".encode())
     elif event.key == pygame.K_RIGHT:
-        client.send("stop_droite".encode())
+        client.send("K stop_droite".encode())
 
 
 # Création de la fenêtre Pygame (n'est pas utilisée dans cet exemple)
