@@ -78,27 +78,25 @@ function select_device(device) {
         header_keyboard.style.backgroundColor = "#424558"
         header_controller.style.backgroundColor = ""
 
-        // Stop taking inputs from the controller
-        if (interval !== undefined) {
-            clearInterval(interval);
-        }
-        
+
+        let result = "";
         // Event listener for each keydown
         document.addEventListener('keydown', function(event) {
+            if (event.repeat) {return}
             console.log(event.key);
             // Create a list containing all inputs
-            result = [];
+
             if (event.key === "ArrowUp") {
-                result.push("avancer");
+                result = "avancer";
             } if (event.key === "ArrowLeft") {
-                result.push("gauche");
+                result = "gauche"
             } if (event.key === "ArrowDown") {
-                result.push("reculer");
+                result ="reculer";
             } if (event.key === "ArrowRight") {
-                result.push("droite");
+                result = "droite";
             }
             // Send request to the Python file if there is an input
-            fetch('/my_route', {
+            fetch('http://10.229.253.46:2005', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -107,7 +105,34 @@ function select_device(device) {
                 })
                 .then(response => response.json())
                 .then(data => console.log(data))
-                .catch(error => console.error(error)); 
+                .catch(error => console.error(error));
+        });
+
+        // Event listener for each keyup
+        document.addEventListener("keyup", function(event) {
+            if (event.repeat) {return}
+            console.log(event.key)
+            if (event.key === "ArrowUp") {
+                result = "stop_avancer";
+            } if (event.key === "ArrowLeft") {
+                result = "stop_gauche";
+            } if (event.key === "ArrowDown") {
+                result = "stop_reculer";
+            } if (event.key === "ArrowRight") {
+                result = "stop_droite";
+            }
+
+            // Send request to the Python file if there is an input
+            fetch('http://10.229.253.46:2005', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(result)
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
         });
         
     }

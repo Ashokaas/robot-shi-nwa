@@ -2,7 +2,18 @@ import secrets
 
 # Librairie(s) utilisée(s)
 from flask import *
+import socket
+import atexit
 
+
+def exit_handler():
+    client.close()
+
+
+atexit.register(exit_handler)
+
+# POST /d HTTP/1.1
+# ....
 
 # Module(s) utilisé(s)
 
@@ -11,6 +22,17 @@ from flask import *
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
 
+# Adresse IP et port TCP d'écoute du serveur
+HOST = "127.0.0.1"
+PORT = 2004
+
+# Création de la socket
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Connexion au serveur
+client.connect((HOST, PORT))
+client.send("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".encode())
+print(f"Connexion vers {HOST}:{PORT} reussie.")
 
 
 
@@ -34,13 +56,16 @@ def index():
     return render_template("index.html")
 
 
-
-
-
-
 @app.route('/my_route', methods=['POST'])
 def my_route():
+    global client
     myList = request.get_json()
+    client.send("start_drive".encode())
+    if myList == "avancer":
+        print(1)
+        client.send("start_drive".encode())
+    elif myList == "stop_avancer":
+        client.send("stop_drive".encode("utf8"))
     print(myList)
     return jsonify({'result': myList})
 
