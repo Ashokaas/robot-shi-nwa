@@ -27,11 +27,10 @@ class Robot:
 
         motorGauche = Motor(Port.A, Direction.CLOCKWISE)
         motorDroite = Motor(Port.C, Direction.CLOCKWISE)
-        motorCentre = Motor(Port.B, Direction.CLOCKWISE)
+        self.barre = Motor(Port.B, Direction.CLOCKWISE)
 
         self.vroumBase = DriveBase(motorGauche, motorDroite, 55.5, 104)
-
-        self.vroum = (motorGauche, motorDroite, motorCentre)
+        self.vroumBase.reset()
 
         self.ultrasonic = UltrasonicSensor(Port.S2)
         self.color = ColorSensor(Port.S3)
@@ -48,6 +47,8 @@ class Robot:
         self.leftTrigger = False
         self.xLeft = False
         self.xRight = False
+
+        self.levage = False
 
     def drive(self, speed, angle):
         self.vroumBase.drive(speed, angle)
@@ -76,6 +77,8 @@ class Server:
         angle = 60 * self.robot.right - 60 * self.robot.left
         vitesse += 1 if angle != 0 and vitesse == 0 else 0
 
+        print("u")
+
         self.robot.drive(vitesse, angle)
 
     def controller_handling(self):
@@ -84,6 +87,10 @@ class Server:
         vitesse += 1 if angle != 0 and vitesse == 0 else 0
 
         self.robot.drive(vitesse, angle)
+
+    def barre_handling(self):
+        # self.robot.barre.run_until_stalled(-500 + 1000 * self.robot.levage)
+        pass
 
     def send_datas(self, client):
         while True:
@@ -113,6 +120,10 @@ class Server:
                 self.robot.down = True if cmd == "reculer" else False if cmd == "stop_reculer" else self.robot.down
                 self.robot.space = True if cmd == "espace" else False if cmd == "stop_espace" else self.robot.space
 
+                if cmd == "barre":
+                    self.robot.levage = not self.robot.levage
+                    self.barre_handling()
+
                 self.keyboard_handling()
 
             elif requetestr[0] == "C":
@@ -123,6 +134,10 @@ class Server:
                 self.robot.xLeft = True if cmd == "gauche" else False if cmd == "stop_tourner" else self.robot.xLeft
                 self.robot.xRight = True if cmd == "droite" else False if cmd == "stop_tourner" else self.robot.xRight
                 self.robot.leftTrigger = True if cmd == "reculer" else False if cmd == "stop_reculer" else self.robot.leftTrigger
+
+                if cmd == "barre":
+                    self.robot.levage = not self.robot.levage
+                    self.barre_handling()
 
                 self.controller_handling()
 
