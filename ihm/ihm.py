@@ -19,17 +19,28 @@ client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((HOST, PORT))
 client.send("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".encode())
 print(f"Connexion vers {HOST}:{PORT} reussie.")
-"""
 
-def on_key_down(event):
+
+def receive_datas(client):
+    database = db.BDD(file_name="/home/labbec/PycharmProjects/robot-shi-nwa/bdd/identifier.sqlite")
+    while True:
+        datas = client.recv(1024)
+        print(datas.decode())
+        database.request(0, ["Gaming", datas[2], datas[1]])
+
+
+def on_key_up(event):
     if event.key == pygame.K_UP:
-        client.send("K avancer".encode())
+        client.send("K stop_avancer".encode())
     elif event.key == pygame.K_LEFT:
-        client.send("K gauche".encode())
+        client.send("K stop_gauche".encode())
     elif event.key == pygame.K_DOWN:
-        client.send("K reculer".encode())
+        client.send("K stop_reculer".encode())
     elif event.key == pygame.K_RIGHT:
-        client.send("K droite".encode())
+        client.send("K stop_droite".encode())
+    elif event.key == pygame.K_SPACE:
+        client.send("K stop_espace".encode())
+
 
 def on_key_down(event):
     if event.key == pygame.K_UP:
@@ -57,7 +68,8 @@ match input("Voulez vous controller le robot à la manette (y) ? "):
         while True:
             current_inputs = xbox.read2()
             if current_inputs != previous_inputs:
-                different_values = {key: current_inputs[key] for key in current_inputs if current_inputs[key] != previous_inputs.get(key)}
+                different_values = {key: current_inputs[key] for key in current_inputs if
+                                    current_inputs[key] != previous_inputs.get(key)}
                 print(different_values)
                 for key, val in zip(different_values.keys(), different_values.values()):
                     # droite/gauche
@@ -86,9 +98,13 @@ match input("Voulez vous controller le robot à la manette (y) ? "):
         print("Clavier")
 
         pygame.init()
+        pygame.font.init()  # you have to call this at the start,
+        # if you want to use this module.
+        my_font = pygame.font.SysFont('Comic Sans MS', 30)
 
         # Création de la fenêtre Pygame
-        window = pygame.display.set_mode((200, 200))
+        window = pygame.display.set_mode((500, 500))
+        text_surface = my_font.render('Some Text', False, (0, 0, 0))
 
         # Boucle principale
         running = True

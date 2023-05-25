@@ -41,6 +41,13 @@ class Robot:
         self.left = False
         self.right = False
         self.down = False
+        self.space = False
+
+        # Manettes appuyés
+        self.rightTrigger = False
+        self.leftTrigger = False
+        self.xLeft = False
+        self.xRight = False
 
     def drive(self, speed, angle):
         self.vroumBase.drive(speed, angle)
@@ -64,9 +71,10 @@ class Server:
         self.robot = robot
 
     def keyboard_handling(self):
-        vitesse = 500 * self.robot.up - 500 * self.robot.down
-        angle = 30 * self.robot.right - 30 * self.robot.left
-        vitesse += 1 if angle > 0 and vitesse == 0 else 0
+        boost = 200 * self.robot.space
+        vitesse = (300 + boost) * self.robot.up - (300 + boost) * self.robot.down
+        angle = 60 * self.robot.right - 60 * self.robot.left
+        vitesse += 1 if angle != 0 and vitesse == 0 else 0
 
         self.robot.drive(vitesse, angle)
 
@@ -96,19 +104,27 @@ class Server:
             requetestr = requete.decode()
             print("Réception de " + requetestr)
 
-            if requetestr.startswith("K "):
-                cmd = requetestr.removeprefix("K ")
+            if requetestr[0] == "K":
+                cmd = requetestr[2:]
 
                 self.robot.up = True if cmd == "avancer" else False if cmd == "stop_avancer" else self.robot.up
                 self.robot.left = True if cmd == "gauche" else False if cmd == "stop_gauche" else self.robot.left
                 self.robot.right = True if cmd == "droite" else False if cmd == "stop_droite" else self.robot.right
                 self.robot.down = True if cmd == "reculer" else False if cmd == "stop_reculer" else self.robot.down
+                self.robot.space = True if cmd == "espace" else False if cmd == "stop_espace" else self.robot.space
 
                 self.keyboard_handling()
 
-            # Préparation et envoi de la réponse
-            reponse = "OK"
-            client.send(reponse.encode())
+            elif requetestr[0] == "C":
+                print("douleur")
+                cmd = requetestr[2:]
+
+                self.robot.rightTrigger = True if cmd == "avancer" else False if cmd == "stop_avancer" else self.robot.rightTrigger
+                self.robot.xLeft = True if cmd == "gauche" else False if cmd == "stop_tourner" else self.robot.xLeft
+                self.robot.xRight = True if cmd == "droite" else False if cmd == "stop_tourner" else self.robot.xRight
+                self.robot.leftTrigger = True if cmd == "reculer" else False if cmd == "stop_reculer" else self.robot.leftTrigger
+
+                self.controller_handling()
 
         # Déconnexion avec le client
         print("Fermeture de la connexion avec le client.")
