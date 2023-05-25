@@ -6,6 +6,8 @@ import time
 import pygame
 import time
 import xbox_controller
+import multiprocessing
+import bdd.bdd as db
 
 HOST = "10.229.253.70"
 PORT = 2005
@@ -42,15 +44,16 @@ def on_key_down(event):
         client.send("K espace".encode())
 
 
+process = multiprocessing.Process(target=receive_datas, args=[client])
 
 match input("Voulez vous controller le robot à la manette (y) ? "):
     case "y":
         print("Manette")
-        
         # Création de la manette
         xbox = xbox_controller.XboxController()
         commandes = {"avancer": False, "gauche": False, "reculer": False, "droite": False}
         previous_inputs = xbox.read2()
+        process.start()
         while True:
             current_inputs = xbox.read2()
             if current_inputs != previous_inputs:
@@ -89,6 +92,7 @@ match input("Voulez vous controller le robot à la manette (y) ? "):
 
         # Boucle principale
         running = True
+        process.start()
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -99,6 +103,4 @@ match input("Voulez vous controller le robot à la manette (y) ? "):
                     on_key_up(event)
 
         pygame.quit()
-
-
-
+process.terminate()

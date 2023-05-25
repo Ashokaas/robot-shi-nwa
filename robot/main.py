@@ -1,4 +1,6 @@
 #!/usr/bin/env pybricks-micropython
+import time
+
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, TouchSensor, ColorSensor, InfraredSensor, UltrasonicSensor, GyroSensor
 from pybricks.parameters import Port, Stop, Direction, Button, Color
@@ -6,6 +8,7 @@ from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 
+import multiprocessing as mp
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 # Click "Open user guide" on the EV3 extension tab for more information.
 
@@ -43,7 +46,7 @@ class Robot:
         self.vroumBase.drive(speed, angle)
 
     def get_datas(self):
-        return self.ultrasonic.distance(silent=True), self.color.ambient() * 10
+        return self.ultrasonic.distance(silent=True), self.color.ambient() / 10, self.vroumBase.distance()
 
     def stop(self):
         self.vroumBase.stop()
@@ -67,10 +70,25 @@ class Server:
 
         self.robot.drive(vitesse, angle)
 
+    def controller_handling(self):
+        vitesse = 300 * self.robot.rightTrigger - 300 * self.robot.leftTrigger
+        angle = 60 * self.robot.xRight - 60 * self.robot.xLeft
+        vitesse += 1 if angle != 0 and vitesse == 0 else 0
+
+        self.robot.drive(vitesse, angle)
+
+    def send_datas(self, client):
+        while True:
+            time.sleep(0.5)
+            datas = robot.get_datas()
+            client.send(str(datas).encode())
+
     def listen(self):
         fin = False
         client, adresse = self.serveur.accept()
         print("Connexion de " + str(adresse))
+        process = mp.Process(target=self.send_datas, args=[client])
+        process.start()
         while not fin:
             # Attente qu'un client se connecte
             # Réception de la requete du client sous forme de bytes et transformation en string
@@ -94,6 +112,7 @@ class Server:
 
         # Déconnexion avec le client
         print("Fermeture de la connexion avec le client.")
+        process.terminate()
         client.close()
 
     def close(self):
