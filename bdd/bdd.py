@@ -10,7 +10,7 @@ class BDD:
                              "VALUES (?, ?, date('now'), ?, ?);",
                          "1":
                              "SELECT * FROM robot"
-                             "WHERE Pilote=? AND Exploration=?"}
+                             "WHERE Pilote=? AND Exploration=?;"}
 
     def request(self, request_id, list_args: tuple or list):
         request = self.requests[str(request_id)]

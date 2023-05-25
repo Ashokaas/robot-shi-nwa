@@ -53,7 +53,7 @@ class Robot:
         self.vroumBase.drive(speed, angle)
 
     def get_datas(self):
-        return self.ultrasonic.distance(silent=True), self.color.ambient() / 10, self.vroumBase.distance()
+        return self.ultrasonic.distance(), self.color.ambient() / 10, self.vroumBase.distance()
 
     def stop(self):
         self.vroumBase.stop()
