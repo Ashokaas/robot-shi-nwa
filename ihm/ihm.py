@@ -7,9 +7,8 @@ import pygame
 import time
 import xbox_controller
 
-"""
-HOST = "127.0.0.1"
-PORT = 1234
+HOST = "10.229.253.70"
+PORT = 2005
 
 # Création de la socket
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -30,16 +29,18 @@ def on_key_down(event):
     elif event.key == pygame.K_RIGHT:
         client.send("K droite".encode())
 
-
-def on_key_up(event):
+def on_key_down(event):
     if event.key == pygame.K_UP:
-        client.send("K stop_avancer".encode())
+        client.send("K avancer".encode())
     elif event.key == pygame.K_LEFT:
-        client.send("K stop_gauche".encode())
+        client.send("K gauche".encode())
     elif event.key == pygame.K_DOWN:
-        client.send("K stop_reculer".encode())
+        client.send("K reculer".encode())
     elif event.key == pygame.K_RIGHT:
-        client.send("stop_droite".encode())
+        client.send("K droite".encode())
+    elif event.key == pygame.K_SPACE:
+        client.send("K espace".encode())
+
 
 
 match input("Voulez vous controller le robot à la manette (y) ? "):
@@ -56,18 +57,31 @@ match input("Voulez vous controller le robot à la manette (y) ? "):
                 different_values = {key: current_inputs[key] for key in current_inputs if current_inputs[key] != previous_inputs.get(key)}
                 print(different_values)
                 for key, val in zip(different_values.keys(), different_values.values()):
-                    if key == "x" and val ==:
+                    # droite/gauche
+                    if key == "x" and val == -1.0:
+                        client.send("C gauche".encode())
+                    if key == "x" and val in [-0.0, 0.0]:
+                        client.send("C stop_tourner".encode())
+                    if key == "x" and val == 1.0:
+                        client.send("C droite".encode())
 
-                
+                    # Avancer
+                    if key == "rightTrigger" and val == 4.0:
+                        client.send("C avancer".encode())
+                    if key == "rightTrigger" and val == 0.0:
+                        client.send("C stop_avancer".encode())
+
+                    # Reculer
+                    if key == "leftTrigger" and val == 4.0:
+                        client.send("C reculer".encode())
+                    if key == "leftTrigger" and val == 0.0:
+                        client.send("C stop_reculer".encode())
+
             previous_inputs = current_inputs
-            
-            
-            
-        
-        
+
     case _:
         print("Clavier")
-        
+
         pygame.init()
 
         # Création de la fenêtre Pygame
