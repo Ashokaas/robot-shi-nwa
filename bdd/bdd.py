@@ -7,7 +7,7 @@ class BDD:
         self.cursor = self.file.cursor()
         self.requests = {"0":
                              "INSERT INTO robot (Exploration, Distance, Date, NSIum, Pilote)"
-                             "VALUES (?, ?, ?, ?, ?);",
+                             "VALUES (?, ?, date('now'), ?, ?);",
                          "1":
                              "SELECT * FROM robot"
                              "WHERE Pilote=? AND Exploration=?"}

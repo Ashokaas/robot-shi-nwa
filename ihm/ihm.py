@@ -21,12 +21,13 @@ client.send("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".encode())
 print(f"Connexion vers {HOST}:{PORT} reussie.")
 
 
-def receive_datas(client):
+def receive_datas(client, exploration, pilote):
     database = db.BDD(file_name="/home/labbec/PycharmProjects/robot-shi-nwa/bdd/identifier.sqlite")
     while True:
         datas = client.recv(1024)
-        print(datas.decode())
-        database.request(0, ["Gaming", datas[2], datas[1]])
+        datas.decode()
+        print(datas[0])
+        database.request(0, [exploration, datas[2], datas[1], pilote])
 
 
 def on_key_up(event):
@@ -53,9 +54,14 @@ def on_key_down(event):
         client.send("K droite".encode())
     elif event.key == pygame.K_SPACE:
         client.send("K espace".encode())
+    elif event.key == pygame.K_CAPSLOCK:
+        client.send("K barre".encode())
 
 
-process = multiprocessing.Process(target=receive_datas, args=[client])
+exploration = input("Nom de l'exploration : ")
+pilote = input("Nom du pilote : ")
+
+process = multiprocessing.Process(target=receive_datas, args=[client, exploration, pilote])
 
 match input("Voulez vous controller le robot à la manette (y) ? "):
     case "y":
@@ -92,6 +98,10 @@ match input("Voulez vous controller le robot à la manette (y) ? "):
                     if key == "leftTrigger" and val == 0.0:
                         client.send("C stop_reculer".encode())
 
+                    # Barre
+                    if key == "A" and val == 1.0:
+                        client.send("C barre".encode())
+
             previous_inputs = current_inputs
 
     case _:
@@ -117,6 +127,7 @@ match input("Voulez vous controller le robot à la manette (y) ? "):
                     on_key_down(event)
                 elif event.type == pygame.KEYUP:
                     on_key_up(event)
+            pygame.display.update()
 
         pygame.quit()
 process.terminate()
