@@ -16,7 +16,9 @@ def key_generator(length):
     return key
 
 
-def chiffrement(message: str, cle):
+def chiffrement(message: str, cle=None):
+    if cle is None:
+        cle = key_generator(len(message))
     liste_char: list = [*message]
     for i in range(len(liste_char)):
         liste_char[i] = ord(liste_char[i]) ^ ord(cle[i])
@@ -25,7 +27,7 @@ def chiffrement(message: str, cle):
     for i in range(len(liste_char)):
         message += chr(liste_char[i])
 
-    return message
+    return message, cle
 
 
 if __name__ == "__main__":

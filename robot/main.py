@@ -1,5 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 import time
+import xor
 
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, TouchSensor, ColorSensor, InfraredSensor, UltrasonicSensor, GyroSensor
@@ -96,7 +97,10 @@ class Server:
         while True:
             time.sleep(0.5)
             datas = robot.get_datas()
-            client.send(str(datas).encode())
+            datas = str(datas)
+            datas, cle = xor.chiffrement(datas)
+            datas += cle
+            client.send(datas.encode())
 
     def listen(self):
         fin = False
@@ -108,7 +112,10 @@ class Server:
             # Attente qu'un client se connecte
             # Réception de la requete du client sous forme de bytes et transformation en string
             requete = client.recv(1024)
-            requetestr = requete.decode()
+            requetestr = str(requete.decode())
+            length = len(requetestr)
+            message, cle = requetestr[:length//2], requetestr[length//2:]
+            requetestr, cle = xor.chiffrement(message, cle)
             print("Réception de " + requetestr)
 
             if requetestr[0] == "K":
