@@ -5,8 +5,7 @@ from bdd import bdd as db
 
 # Initialisation de l'application Flask
 app = Flask(__name__)
-#database = db.BDD("bdd/identifier.sqlite")
-database = db.BDD(r"c:\Users\antot\Desktop\robot-shi-nwa\web\bdd\identifier.sqlite")
+database = db.BDD("bdd/identifier.sqlite")
 
 
 # Gestionnaire d'erreur 404
