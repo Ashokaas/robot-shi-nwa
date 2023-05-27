@@ -134,7 +134,6 @@ class Server:
                 self.keyboard_handling()
 
             elif requetestr[0] == "C":
-                print("douleur")
                 cmd = requetestr[2:]
 
                 self.robot.rightTrigger = True if cmd == "avancer" else False if cmd == "stop_avancer" else self.robot.rightTrigger

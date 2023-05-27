@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Donnees</title>
+</head>
+{% include "header.html" %}
+<body>
+
+
+<table id="tableau" cellspacing="0">
+
+    <!-- Head -->
+    <thead>
+    <tr>
+        <td id="nom">Nom</td>
+        <td id="date">Date</td>
+        <td id="pilote">Pilote</td>
+        <td id="distance">Distance parcouru</td>
+        <td id="nsium">Taux NSIUM</td>
+    </tr>
+    </thead>
+
+    <!-- Body -->
+    <tbody>
+
+    {% for donnees in campagne %}
+        <tr>
+            <td>{{ donnees[1] }}</td>
+            <td>{{ donnees[5] }}</td>
+            <td>{{ donnees[4] }}</td>
+            <td>{{ donnees[2] }}</td>
+            <td>{{ donnees[3] }}</td>
+
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+</body>
+</html>

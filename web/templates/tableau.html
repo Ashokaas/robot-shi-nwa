@@ -1,0 +1,35 @@
+{% include "header.html" %}
+
+<table id="tableau" cellspacing="0">
+
+    <!-- Head -->
+    <thead>
+    <tr>
+        <td id="nom">Nom</td>
+        <td id="date">Date</td>
+        <td id="pilote">Pilote</td>
+        <td id="visualiser">Action</td>
+    </tr>
+    </thead>
+
+    <!-- Body -->
+    <tbody>
+
+    {%  for campagne in campagnes %}
+    <tr>
+        <td>{{ campagne[0] }}</td>
+        <td>{{ campagne[1] }}</td>
+        <td>{{ campagne[2] }}</td>
+        <td>
+            <form method="get" action="/donnees">
+                <input type="hidden" name="nom" value={{ campagne[0] }} />
+                <input type="hidden" name="date" value={{ campagne[1] }} />
+                <input type="hidden" name="pilote" value={{ campagne[2] }} />
+                <input type="submit" value="Visualiser">
+            </form>
+        </td>
+    </tr>
+    {%  endfor %}
+
+    </tbody>
+</table>

@@ -1,13 +1,8 @@
-import math
-import threading
 import socket
-import keyboard
-import time
 import pygame
-import time
 import xbox_controller
 import multiprocessing
-import bdd.bdd as db
+from web.bdd import bdd as db
 import xor
 
 HOST = "10.229.253.70"
