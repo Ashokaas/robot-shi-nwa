@@ -1,10 +1,20 @@
-"""
-Fonction permettant de chiffrer et déchiffrer un caractere grace a un masque jetable
-"""
 import random
+
+"""
+Fichier permettant de chiffrer et déchiffrer un caractere grace a un masque jetable
+"""
 
 
 def key_generator(length):
+    """ Génère une clé aléatoire de la longueur spécifiée.
+
+    Args:
+        length (int): Longueur de la clé.
+
+    Returns:
+        str: Clé générée.
+        
+    """
     alphabet: list = []
     for i in range(26):
         alphabet.append(chr(i+65))
@@ -17,6 +27,16 @@ def key_generator(length):
 
 
 def chiffrement(message: str, cle=None):
+    """ Chiffre le message en utilisant une clé de chiffrement.
+
+    Args:
+        message (str): Message à chiffrer.
+        cle (str): Clé de chiffrement (facultatif).
+
+    Returns:
+        tuple: Tuple contenant le message chiffré et la clé utilisée.
+
+    """
     if cle is None:
         cle = key_generator(len(message))
     liste_char: list = [*message]

@@ -1,41 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <title>Donnees</title>
+    <title>Données</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tableau.css') }}">
 </head>
+
+<!-- Inclure le header -->
 {% include "header.html" %}
+
 <body>
 
+    <div id="tableau">
+        <table cellspacing="0">
 
-<table id="tableau" cellspacing="0">
+            <!-- Head -->
+            <thead>
+            <tr>
+                <td id="nom">Campagne</td>
+                <td id="date">Date</td>
+                <td id="pilote">Pilote</td>
+                <td id="distance">Distance parcouru</td>
+                <td id="nsium">Taux NSIUM</td>
+            </tr>
+            </thead>
 
-    <!-- Head -->
-    <thead>
-    <tr>
-        <td id="nom">Nom</td>
-        <td id="date">Date</td>
-        <td id="pilote">Pilote</td>
-        <td id="distance">Distance parcouru</td>
-        <td id="nsium">Taux NSIUM</td>
-    </tr>
-    </thead>
+            <!-- Body -->
+            <tbody>
 
-    <!-- Body -->
-    <tbody>
+            {% for donnees in campagne %}
+                <tr>
+                    <td>{{ donnees[1] }}</td>  <!-- Affichage du nom de la campagne -->
+                    <td>{{ donnees[5] }}</td>  <!-- Affichage de la date -->
+                    <td>{{ donnees[4] }}</td>  <!-- Affichage du pilote -->
+                    <td>{{ donnees[2] }} cm</td>  <!-- Affichage de la distance parcourue -->
+                    <td>{{ donnees[3] }}%</td>  <!-- Affichage du taux de NSIUM -->
+                </tr>
+            {% endfor %}
 
-    {% for donnees in campagne %}
-        <tr>
-            <td>{{ donnees[1] }}</td>
-            <td>{{ donnees[5] }}</td>
-            <td>{{ donnees[4] }}</td>
-            <td>{{ donnees[2] }}</td>
-            <td>{{ donnees[3] }}</td>
+            </tbody>
+        </table>
+    </div>
 
-        </tr>
-    {% endfor %}
+    <br><br>
 
-    </tbody>
-</table>
 </body>
 </html>

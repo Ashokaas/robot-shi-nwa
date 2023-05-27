@@ -1,35 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Campagnes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tableau.css') }}">
+</head>
+
+<!-- Inclure le contenu du header -->
 {% include "header.html" %}
 
-<table id="tableau" cellspacing="0">
+<body>
 
-    <!-- Head -->
-    <thead>
-    <tr>
-        <td id="nom">Nom</td>
-        <td id="date">Date</td>
-        <td id="pilote">Pilote</td>
-        <td id="visualiser">Action</td>
-    </tr>
-    </thead>
+    <div id="tableau">
+        <table cellspacing="0">
 
-    <!-- Body -->
-    <tbody>
+            <!-- Head -->
+            <thead>
+            <tr>
+                <td id="nom">Campagne</td>  <!-- Colonne pour le nom de la campagne -->
+                <td id="date">Date</td>  <!-- Colonne pour la date de la campagne -->
+                <td id="pilote">Pilote</td>  <!-- Colonne pour le pilote de la campagne -->
+                <td id="visualiser">Action</td>  <!-- Colonne pour l'action (visualisation) -->
+            </tr>
+            </thead>
 
-    {%  for campagne in campagnes %}
-    <tr>
-        <td>{{ campagne[0] }}</td>
-        <td>{{ campagne[1] }}</td>
-        <td>{{ campagne[2] }}</td>
-        <td>
-            <form method="get" action="/donnees">
-                <input type="hidden" name="nom" value={{ campagne[0] }} />
-                <input type="hidden" name="date" value={{ campagne[1] }} />
-                <input type="hidden" name="pilote" value={{ campagne[2] }} />
-                <input type="submit" value="Visualiser">
-            </form>
-        </td>
-    </tr>
-    {%  endfor %}
+            <!-- Body -->
+            <tbody>
 
-    </tbody>
-</table>
+            {%  for campagne in campagnes %}  <!-- Boucle sur la liste des campagnes -->
+            <tr>
+                <td>{{ campagne[0] }}</td>  <!-- Affichage du nom de la campagne -->
+                <td>{{ campagne[1] }}</td>  <!-- Affichage de la date de la campagne -->
+                <td>{{ campagne[2] }}</td>  <!-- Affichage du pilote de la campagne -->
+                <td>
+                    <form method="get" action="/donnees">  <!-- Formulaire pour envoyer les données -->
+                        <input type="hidden" name="nom" value="{{ campagne[0] }}" />  <!-- Champ caché pour le nom de la campagne -->
+                        <input type="hidden" name="date" value="{{ campagne[1] }}" />  <!-- Champ caché pour la date de la campagne -->
+                        <input type="hidden" name="pilote" value="{{ campagne[2] }}" />  <!-- Champ caché pour le pilote de la campagne -->
+                        <input id="img_input" type="image" src="{{ url_for('static', filename='images/loupe.png') }}">  <!-- Bouton d'image pour la visualisation -->
+                    </form>
+                </td>
+            </tr>
+            {%  endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <br><br>
+
+</body>
+</html>

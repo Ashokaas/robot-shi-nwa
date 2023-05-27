@@ -1,80 +1,117 @@
-{% include "header.html" %}
-<div id="story">
-<p>L'histoire de l'Empire Shi-Nwa</p>
-<p id="chatgpt">« As an AI, I cannt speek clearly lyke humenz doo, butt I cann certainlyyy 
-    communicatte through textt in a wayy dat hopfully gets ma message across. 
-    Altough my languauge capabilities are stiill developingg, 
-    Im constanly learningg and impruving ma abilities to betta assistt and engae with
-     people lyke u. So if u ever hav any queshuns or jst want to chate, feel free 
-     to send me a message! »</p>
-<p>Il était une fois, dans un monde lointain et mystérieux, l'Empire Shi-nwa 
-    qui régnait en maître absolu sur les terres fertiles et les montagnes majestueuses.
-     Cet empire était réputé pour sa richesse inégalée et sa technologie de pointe, 
-     qui avait permis de bâtir des cités magnifiques et des machines incroyables.</p>
-<p>Cependant, malgré leur domination sur le monde, les dirigeants de l'Empire Shi-Nwa 
-    ne pouvaient s'empêcher de vouloir plus. Plus d'argent, plus de puissance, plus de contrôle. 
-    Et c'est ainsi qu'ils décidèrent de lancer un projet audacieux : la création de robots 
-    qui pourraient trouver du Nsium, l'élément le plus rare 
-    et le plus cher de tout l'univers connu.</p>
-<p>Pour ceux qui ne le savent pas, le Nsium est un minerai rare qui peut être utilisé
-     pour de nombreuses applications, de la construction de machines à la 
-     production de médicaments. Sa rareté en faisait un produit très prisé 
-     sur le marché, et sa valeur était inestimable.</p>
-<p>Ainsi, l'Empire Shi-Nwa commença à programmer des robots sophistiqués qui 
-    pourraient trouver du Nsium dans les endroits les plus reculés et les plus dangereux.
-     Leur mission était simple : trouver autant de Nsium que possible, et le revendre 
-     à un prix exorbitant pour générer des bénéfices incroyables pour l'empire.</p>
-<p>Mais ce n'était pas tout. Les dirigeants de l'Empire Shi-Nwa avaient des plans
-     plus sombres en tête. Ils avaient l'intention d'utiliser l'argent généré par
-      la vente de Nsium pour construire des armes militaires encore plus avancées,
-       afin de détruire tous les robots des contrées lointaines et d'acquérir un monopole absolu sur le marché du Nsium.</p>
-<p>Les robots de l'Empire Shi-Nwa commencèrent leur quête désespérée pour trouver du Nsium.
-     Ils fouillèrent des mines abandonnées, escaladèrent des montagnes dangereuses, et 
-     naviguèrent sur des océans tumultueux. Et peu à peu, ils commencèrent à trouver de 
-     plus en plus de Nsium.</p>
-<p>Cependant, à mesure que les bénéfices de l'Empire Shi-Nwa augmentaient, les autres
-     contrées commencèrent à remarquer l'ampleur de leur entreprise. 
-     Les dirigeants des autres pays commencèrent à s'inquiéter, et à construire
-      des armes pour se défendre contre l'Empire Shi-Nwa.</p>
-<p>Une coalition de super-héros qui fu dirigé par Canard Man vu le jour. Ce super-héros méprisable
-    ne tuait pas ses ennemis sauf quand il en avait envie. Il était connu pour forcer ses ennemis
-    à regarder des vidéos de lui en train de danser. Canard Man était accompagné de son fidèle
-    acolyte L'Aigle de la Nuit, le super héros vaillant au fusil à pompe qui ne pouvait pas voler.
-</p>
-<p>Bientôt, une guerre éclata. Les robots de l'Empire Shi-Nwa se battirent 
-    contre les héros de la coalition, dans une bataille épique pour le contrôle 
-    du marché du Nsium. Les combats furent féroces, avec des robots détruits dans 
-    toutes les directions.</p>
-<p>Finalement, après des mois de combats acharnés, l'Empire Shi-Nwa sortit vainqueur. 
-    Leurs robots avaient réussi à éliminer tous les concurrents, et leur monopole 
-    sur le marché du Nsium était maintenant incontestable. Les Shi-Nwa pouvaient désormais vendre leurs robots sur Aliexpress sans risque</p>
-<p>Cependant, la victoire n'était pas sans coût. Les terres avaient à être dévastées
-     par la guerre, et les ressources étaient épuisées. Les dirigeants de l'Empire 
-     Shi-Nwa avaient remporté la bataille, mais à quel prix ?</p>
-<p>Les robots, qui avaient été créés pour trouver du Nsium, furent maintenant 
-    réaffectés pour aider à la reconstruction des terres dévastées. Les citoyens de l'Empire Shi-Nwa étaient soulagés de voir 
-    que la paix avait finalement été rétablie, mais certains se demandaient si cela avait valu la peine de tout 
-    détruire pour gagner le monopole sur le marché du Nsium.</p>
-<p>Pourtant, les dirigeants de l'Empire Shi-Nwa ne semblaient pas se soucier de 
-    ces questions. Ils étaient occupés à construire de nouvelles armes encore plus puissantes, en utilisant les bénéfices 
-    qu'ils avaient générés grâce au Nsium. Et ainsi, l'Empire Shi-Nwa continuait à grandir et à prospérer, malgré les 
-    conséquences désastreuses de leur obsession pour le pouvoir et l'argent.</p>
-<p>L'histoire de l'Empire Shi-Nwa est un rappel poignant de la façon dont la soif 
-    de richesse et de pouvoir peut entraîner des conséquences dévastatrices. 
-    Les dirigeants de l'Empire Shi-Nwa ont poursuivi leur objectif sans se soucier
-     des coûts humains et environnementaux, et ont finalement payé le prix fort. 
-     Mais il reste à savoir si l'humanité tirera les leçons de cette histoire, 
-     ou si elle continuera à poursuivre aveuglément le profit à tout prix.</p>
-</div>
-<br><br><br><style>
-    #story p {
-        margin-top: 20px;
-        text-align: justify;
-        text-justify: inter-word;
-        padding: 0px 180px;}
+<!DOCTYPE html>
+<html lang="fr">
 
-    #chatgpt {
-        color: rgb(145, 145, 145);
-        font-style: italic;
-    }
-</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Histoire</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/story.css') }}">
+</head>
+
+<!-- Inclure le contenu du header -->
+{% include "header.html" %}  
+
+<body>
+
+    <div id="story">
+
+        <p>L'histoire de l'Empire Shi-Nwa</p>
+
+        <p id="chatgpt">« As an AI, I cannt speek clearly lyke humenz doo, butt I cann certainlyyy 
+            communicatte through textt in a wayy dat hopfully gets ma message across. 
+            Altough my languauge capabilities are stiill developingg, 
+            Im constanly learningg and impruving ma abilities to betta assistt and engae with
+            people lyke u. So if u ever hav any queshuns or jst want to chate, feel free 
+            to send me a message! »
+        </p>
+
+        <p>Il était une fois, dans un monde lointain et mystérieux, l'Empire Shi-nwa 
+            qui régnait en maître absolu sur les terres fertiles et les montagnes majestueuses.
+            Cet empire était réputé pour sa richesse inégalée et sa technologie de pointe, 
+            qui avait permis de bâtir des cités magnifiques et des machines incroyables.
+        </p>
+
+        <p>Cependant, malgré leur domination sur le monde, les dirigeants de l'Empire Shi-Nwa 
+            ne pouvaient s'empêcher de vouloir plus. Plus d'argent, plus de puissance, plus de contrôle. 
+            Et c'est ainsi qu'ils décidèrent de lancer un projet audacieux : la création de robots 
+            qui pourraient trouver du Nsium, l'élément le plus rare 
+            et le plus cher de tout l'univers connu.
+        </p>
+
+        <p>Pour ceux qui ne le savent pas, le Nsium est un minerai rare qui peut être utilisé
+            pour de nombreuses applications, de la construction de machines à la 
+            production de médicaments. Sa rareté en faisait un produit très prisé 
+            sur le marché, et sa valeur était inestimable.
+        </p>
+
+        <p>Ainsi, l'Empire Shi-Nwa commença à programmer des robots sophistiqués qui 
+            pourraient trouver du Nsium dans les endroits les plus reculés et les plus dangereux.
+            Leur mission était simple : trouver autant de Nsium que possible, et le revendre 
+            à un prix exorbitant pour générer des bénéfices incroyables pour l'empire.
+        </p>
+
+        <p>Mais ce n'était pas tout. Les dirigeants de l'Empire Shi-Nwa avaient des plans
+            plus sombres en tête. Ils avaient l'intention d'utiliser l'argent généré par
+            la vente de Nsium pour construire des armes militaires encore plus avancées,
+            afin de détruire tous les robots des contrées lointaines et d'acquérir un monopole absolu sur le marché du Nsium.
+        </p>
+        
+        <p>Les robots de l'Empire Shi-Nwa commencèrent leur quête désespérée pour trouver du Nsium.
+            Ils fouillèrent des mines abandonnées, escaladèrent des montagnes dangereuses, et 
+            naviguèrent sur des océans tumultueux. Et peu à peu, ils commencèrent à trouver de 
+            plus en plus de Nsium.
+        </p>
+
+        <p>Cependant, à mesure que les bénéfices de l'Empire Shi-Nwa augmentaient, les autres
+            contrées commencèrent à remarquer l'ampleur de leur entreprise. 
+            Les dirigeants des autres pays commencèrent à s'inquiéter, et à construire
+            des armes pour se défendre contre l'Empire Shi-Nwa.
+        </p>
+
+        <p>Une coalition de super-héros qui fu dirigé par Canard Man vu le jour. Ce super-héros méprisable
+            ne tuait pas ses ennemis sauf quand il en avait envie. Il était connu pour forcer ses ennemis
+            à regarder des vidéos de lui en train de danser. Canard Man était accompagné de son fidèle
+            acolyte L'Aigle de la Nuit, le super héros vaillant au fusil à pompe qui ne pouvait pas voler.
+        </p>
+
+        <p>Bientôt, une guerre éclata. Les robots de l'Empire Shi-Nwa se battirent 
+            contre les héros de la coalition, dans une bataille épique pour le contrôle 
+            du marché du Nsium. Les combats furent féroces, avec des robots détruits dans 
+            toutes les directions.
+        </p>
+
+        <p>Finalement, après des mois de combats acharnés, l'Empire Shi-Nwa sortit vainqueur. 
+            Leurs robots avaient réussi à éliminer tous les concurrents, et leur monopole 
+            sur le marché du Nsium était maintenant incontestable. Les Shi-Nwa pouvaient désormais vendre leurs robots sur Aliexpress sans risque
+        </p>
+
+        <p>Cependant, la victoire n'était pas sans coût. Les terres avaient à être dévastées
+            par la guerre, et les ressources étaient épuisées. Les dirigeants de l'Empire 
+            Shi-Nwa avaient remporté la bataille, mais à quel prix ?
+        </p>
+
+        <p>Les robots, qui avaient été créés pour trouver du Nsium, furent maintenant 
+            réaffectés pour aider à la reconstruction des terres dévastées. Les citoyens de l'Empire Shi-Nwa étaient soulagés de voir 
+            que la paix avait finalement été rétablie, mais certains se demandaient si cela avait valu la peine de tout 
+            détruire pour gagner le monopole sur le marché du Nsium.
+        </p>
+
+        <p>Pourtant, les dirigeants de l'Empire Shi-Nwa ne semblaient pas se soucier de 
+            ces questions. Ils étaient occupés à construire de nouvelles armes encore plus puissantes, en utilisant les bénéfices 
+            qu'ils avaient générés grâce au Nsium. Et ainsi, l'Empire Shi-Nwa continuait à grandir et à prospérer, malgré les 
+            conséquences désastreuses de leur obsession pour le pouvoir et l'argent.
+        </p>
+
+        <p>L'histoire de l'Empire Shi-Nwa est un rappel poignant de la façon dont la soif 
+            de richesse et de pouvoir peut entraîner des conséquences dévastatrices. 
+            Les dirigeants de l'Empire Shi-Nwa ont poursuivi leur objectif sans se soucier
+            des coûts humains et environnementaux, et ont finalement payé le prix fort. 
+            Mais il reste à savoir si l'humanité tirera les leçons de cette histoire, 
+            ou si elle continuera à poursuivre aveuglément le profit à tout prix.
+        </p>
+
+    </div>
+
+<br><br>
+
+</body>
+</html>

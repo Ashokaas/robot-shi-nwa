@@ -1,0 +1,11 @@
+#story p {
+    margin-top: 20px;
+    text-align: justify;
+    text-justify: inter-word;
+    padding: 0px 180px;
+}
+
+#chatgpt {
+    color: rgb(145, 145, 145);
+    font-style: italic;
+}

@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
+        <meta charset="UTF-8">
         <title>Robot Shi-Nwa</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     </head>
 
     <body>
+
         <div id="header">
             <div>
-                <a href="{{ url_for('index') }}"><p>Robot Shi-Nwa</p></a>
-                <a href="{{ url_for('story') }}"><p>L'histoire de l'Empire Shi-Nwa</p></a>
+                <!-- Lien vers la page d'accueil -->
+                <a href="{{ url_for('index') }}"><p>Robot Shi-Nwa</p></a> 
+
+                <!-- Lien vers la page d'histoire --> 
+                <a href="{{ url_for('story') }}"><p>L'histoire de l'Empire Shi-Nwa</p></a>  
             </div>
         </div>
-
 
     </body>
 </html>

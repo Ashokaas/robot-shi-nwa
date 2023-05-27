@@ -1,50 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
+    <meta charset="UTF-8">
     <title>Robot Shi-Nwa</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
+
+<!-- Inclure le header -->
+{% include "header.html" %}  
 
 <body>
 
-{% include "header.html" %}
+    <div id="formulaire">
+        <form id="form" method="GET" action="{{ url_for('rechercher') }}">
 
+            <!-- Titre du formulaire -->
+            <p>Rechercher une campagne :</p>  
 
-<div id="formulaire">
-    <form id="form" method="GET" action="{{ url_for('rechercher') }}">
-        <p>Rechercher une campagne :</p>
+            <!-- Sélecteur pour le nom de la campagne -->
+            <div class="selecteur">
+                <label>Nom : </label>
+                <select name="nom" id="non">
+                    <option value="">-- Aucun --</option>
+                    {% for nom in explorations %}
+                        <option value="{{ nom[0] }}">{{ nom[0] }}</option>
+                    {% endfor %}
+                </select>
+            </div>  
 
-        <div class="selecteur">
-            <label>Nom : </label>
-            <select name="nom" id="non">
-                <option value="">-- Aucun --</option>
-                {% for nom in explorations %}
-                    <option value={{ nom[0] }}>{{ nom[0] }}</option>
-                {% endfor %}
-            </select>
-        </div>
+            <!-- Sélecteur pour le nom du pilote -->
+            <div class="selecteur">
+                <label>Pilote : </label>
+                <select name="pilote" id="pilote">
+                    <option value="">-- Aucun --</option>
+                    {% for nom in pilotes %}
+                        <option value="{{ nom[0] }}">{{ nom[0] }}</option>
+                    {% endfor %}
+                </select>
+            </div>  
 
-        <div class="selecteur">
-            <label>Pilote : </label>
-            <select name="pilote" id="pilote">
-                <option value="">-- Aucun --</option>
-                {% for nom in pilotes %}
-                    <option value={{ nom[0] }}>{{ nom[0] }}</option>
-                {% endfor %}
-            </select>
-        </div>
+            <!-- Champ pour la date de la campagne -->
+            <div class="selecteur">
+                <label>Date :</label>
+                <input type="date" id="date" name="date" value="">
+            </div>  
 
-        <div class="selecteur">
-            <label>Date :</label>
-            <input type="date" id="date" name="date" value="">
-        </div>
+            <!-- Bouton de recherche -->
+            <div id="btn">
+                <input type="submit" value="Rechercher">
+            </div>  
 
-        <input type="submit" id="btn" value="Rechercher">
-    </form>
-</div>
+        </form>
+    </div>
+
     {% if data %}
-        <p>{{ data }}</p>
+        <p>{{ data }}</p>  <!-- Affichage des données de recherche -->
     {% endif %}
 
 </body>
