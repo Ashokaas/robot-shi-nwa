@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Robot Shi-Nwa</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+{% include "header.html" %}
+
+
+<div id="formulaire">
+    <form id="form" method="GET" action="{{ url_for('rechercher') }}">
+        <p>Rechercher une campagne :</p>
+
+        <div class="selecteur">
+            <label>Nom : </label>
+            <select name="nom" id="non">
+                <option value="">-- Aucun --</option>
+                {% for nom in explorations %}
+                    <option value={{ nom[0] }}>{{ nom[0] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="selecteur">
+            <label>Pilote : </label>
+            <select name="pilote" id="pilote">
+                <option value="">-- Aucun --</option>
+                {% for nom in pilotes %}
+                    <option value={{ nom[0] }}>{{ nom[0] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="selecteur">
+            <label>Date :</label>
+            <input type="date" id="date" name="date" value="">
+        </div>
+
+        <input type="submit" id="btn" value="Rechercher">
+    </form>
+</div>
+    {% if data %}
+        <p>{{ data }}</p>
+    {% endif %}
+
+</body>
+
+</html>
