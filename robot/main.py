@@ -1,6 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 import time
-import xor
+from chiffrement import xor
 
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, TouchSensor, ColorSensor, InfraredSensor, UltrasonicSensor, GyroSensor

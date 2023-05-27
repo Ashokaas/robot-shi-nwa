@@ -3,7 +3,7 @@ import pygame
 import xbox_controller
 import multiprocessing
 from web.bdd import bdd as db
-import xor
+from chiffrement import xor
 
 HOST = "10.229.253.70"
 PORT = 2005
