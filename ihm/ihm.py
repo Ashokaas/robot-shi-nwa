@@ -18,7 +18,7 @@ print(f"Connexion vers {HOST}:{PORT} reussie.")
 
 
 def receive_datas(client, exploration, pilote):
-    database = db.BDD(file_name="/home/labbec/PycharmProjects/robot-shi-nwa/bdd/identifier.sqlite")
+    database = db.BDD("../web/bdd/identifier.sqlite")
     while True:
         datas = client.recv(1024)
         datas.decode()
@@ -27,7 +27,7 @@ def receive_datas(client, exploration, pilote):
         datas, cle = xor.chiffrement(message, cle)
         datas = tuple(datas)
         print(datas[0])
-        database.request(0, [exploration, datas[2], datas[1], pilote])
+        database.request("add", [exploration, datas[2], datas[1], pilote])
 
 
 def on_key_up(event):
